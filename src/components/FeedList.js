@@ -1,0 +1,23 @@
+import React from 'react'
+import { ScrollView, StyleSheet } from 'react-native'
+import EntryItem from '../components/EntryItem'
+
+const FeedList = (props) =>{
+    const renderArticles = () => props.entries.map((item,index) => (
+        <EntryItem key={index} entry = {item} />
+    ))
+
+    return (
+        <ScrollView style={styles.container}>
+            {renderArticles()}
+        </ScrollView>
+    )
+}
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        paddingTop :5
+    }
+})
+
+export default FeedList
