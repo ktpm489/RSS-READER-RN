@@ -4,7 +4,7 @@ import EntryItem from '../components/EntryItem'
 
 const FeedList = (props) =>{
     const renderArticles = () => props.entries.map((item,index) => (
-        <EntryItem key={index} entry = {item} />
+        <EntryItem key={index} entry={item} param={props.params} />
     ))
 
     return (

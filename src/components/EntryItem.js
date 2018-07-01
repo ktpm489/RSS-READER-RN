@@ -7,7 +7,13 @@ class EntryItem extends Component {
         super(props)
     }
     handlePress = () =>{
-        this.props.navigator.push('entry', { entry : this.props.entry })
+       // this.props.navigator.push('entry', { entry : this.props.entry })
+        this.props.param('entry',
+            {
+                entry: this.props.entry 
+            }
+        )
+
     }
 
   render() {

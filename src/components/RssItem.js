@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withNavigation } from 'react-navigation'
 import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
+import FeedScreen from '../screen/FeedScreen'
 class RssItem extends Component {
     constructor(props){
         super(props)
@@ -22,9 +24,10 @@ class RssItem extends Component {
         .then (response => response.json())
         .then ((json)=> {
             if (json.status === 'ok'){
+                console.log('json' , json)
                 this.setState({
                     title : json.feed.title,
-                    description : json.fedd.description,
+                    description : json.feed.description,
                     link : json.feed.link,
                     image: json.feed.image,
                     entries: json.items,
@@ -42,7 +45,15 @@ class RssItem extends Component {
 
     handlePress = () => {
         const { title, entries } = this.state
-        this.props.navigator.push('feed', { title, entries })
+        console.log('param', this.props.param)
+        this.props.param('feed',
+            {
+                title,
+                entries
+            }
+        )
+      //  this.props.navigator.push('feed', { title, entries })
+     //   this.props.navigator.push('feed', { title, entries })
     }
   render() {
     return (
@@ -99,4 +110,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default  RssItem
+export default  withNavigation(RssItem)
