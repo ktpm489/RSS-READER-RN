@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet ,Image } from 'react-native'
-
+const noImage = require('../../assets/imageNoFound.png')
 class EntryItem extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            isError : false 
+        }
     }
     handlePress = () => {
         // this.props.navigator.push('entry', { entry : this.props.entry })
@@ -16,9 +19,15 @@ class EntryItem extends Component {
         )
 
     }
+    onError= (e) => {
+        console.log('Can not load image')
+        this.setState({ isError : true })
+    }
 
     render() {
         const { entry } = this.props
+        const { isError } = this.state
+        const data = isError ? noImage : {uri: entry.thumbnail}
         return (
             <TouchableOpacity onPress={this.handlePress}>
                 {/* <View style={styles.rssContainer}>
@@ -31,8 +40,9 @@ class EntryItem extends Component {
                 </View> */}
                 <View style={styles.container}>
                     <Image
-                        source={{ uri: entry.thumbnail }}
+                        source={data}
                         resizeMode='cover'
+                        onError={this.onError}
                         style={styles.thumbnail} />
                     <View style={styles.rightContainer}>
                         <Text style={styles.title}>{entry.title}</Text>
