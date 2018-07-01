@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withNavigation } from 'react-navigation'
-import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet } from 'react-native'
-import FeedScreen from '../screen/FeedScreen'
+import { View, Text, TouchableOpacity, ActivityIndicator, StyleSheet} from 'react-native'
 class RssItem extends Component {
     constructor(props){
         super(props)
@@ -55,10 +53,12 @@ class RssItem extends Component {
       //  this.props.navigator.push('feed', { title, entries })
      //   this.props.navigator.push('feed', { title, entries })
     }
+
   render() {
+      const deleteData = this.props.hanleDelete
     return (
         <TouchableOpacity onPress={this.state.isLoading ? () => { } : this.handlePress} 
-            onLongPress={() => this.props.handleDelete(this.props.url)}
+            onLongPress={()=> deleteData(this.props.url)}
         >
             <View style={[styles.rssContainer, { backgroundColor: this.props.color }]}>
                 {this.state.isLoading ?

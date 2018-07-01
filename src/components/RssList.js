@@ -16,6 +16,7 @@ const RssList = (props) =>{
             key={index}
             url={url}
             param={props.params}
+            hanleDelete={props.hanleDelete}
             color={colorsOrder[index % colorsOrder.length]}
         />
     ))

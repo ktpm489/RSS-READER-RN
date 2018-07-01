@@ -6,9 +6,10 @@ import EntryDetail from '../components/EntryDetail'
 const EntryScreen = (props) => {
 
     const { entry } = props.navigation.state.params
+    const { navigate } = props.navigation;
     return(
     <View style={styles.container}>
-            <EntryDetail entry={entry}/>
+            <EntryDetail entry={entry} param={navigate}/>
     </View>
 )}
 
