@@ -4,6 +4,7 @@ import _ from 'underscore'
 import Colors from '../constants/Colors'
 import RssAddInput from '../components/RssAddInput'
 import RssList from '../components/RssList'
+import linkdata from '../data/link'
 class RssListScreen extends Component {
   constructor(){
     super()
@@ -12,18 +13,33 @@ class RssListScreen extends Component {
       rssList: []
     }
   }
+  componentWillMount() {
+    this.getRssList()
+  }
 
   getRssList = () => {
     AsyncStorage.getItem('rssList').then((response)=>{
       const rssList = JSON.parse(response) || []
+      console.log('RssList', rssList)
+      console.log('link', linkdata.data)
+      if (linkdata.data.length > 0 && rssList.length === 0) {
+        AsyncStorage.setItem('rssList', JSON.stringify(linkdata.data)).then(
+          () => {
+            this.setState({
+              rssUrl: '',
+              rssList : linkdata.data
+            })
+          })
+      } else {
       this.setState({ rssList })
+      }
     })
   }
 
   handleSaveRss = () => {
     const { rssList, rssUrl } = this.state
     if (rssUrl.length && !_.contains(rssList, rssUrl)) {
-      rssList.push(rssUrl)
+      rssList.push(rssUrl.trim())
       AsyncStorage.setItem('rssList', JSON.stringify(rssList)).then(
       ()=>{
         this.setState({
@@ -54,7 +70,7 @@ class RssListScreen extends Component {
   }
  
   handleChangeRssUrl = (rssUrl) =>{
-    this.setState({rssUrl})
+    this.setState({rssUrl : rssUrl.trim()})
   }
 
   

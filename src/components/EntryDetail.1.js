@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, Linking, StyleSheet, WebView, View, Button, Image } from 'react-native'
+import { ScrollView, Text, Linking, StyleSheet, WebView, View, Button,Image } from 'react-native'
 import HTMLView from 'react-native-htmlview'
 import Colors from '../constants/Colors'
 
@@ -7,13 +7,13 @@ const EntryDetail = (props) => {
 
 
 
-
+    
     const { entry } = props
     console.log('ENTRY DETAIL', entry)
     const handlePress = () => {
         props.param('webview',
             {
-                entry: props.entry,
+                entry : props.entry,
                 title: props.entry.title
             }
         )
@@ -22,13 +22,14 @@ const EntryDetail = (props) => {
     const renderNode = (node, index, siblings, parent, defaultRenderer) => {
         if (node.name == 'img') {
             const a = node.attribs;
-            const src = a.src
-            if (src && src.endsWith('.gif')) {
-                return (<Image style={{ width: 200, height: 50, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
-            } else {
-                return (<Image style={{ width: 500, height: 200, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
+            const src = a.src 
+            if (src && src.endsWith('.gif')){
+                return (<Image style={{ width: 200, height: 50 ,alignSelf :'center' ,justifyContent :'center' ,alignContent :'center' }} source={{ uri: a.src }} resizeMode='cover' />);
+            } else 
+            {
+                return (<Image style={{ width: 500, height: 200, alignSelf: 'center', justifyContent: 'center', alignContent: 'center'}} source={{ uri: a.src }} resizeMode='cover' />);
             }
-
+           
         }
     }
     return (
@@ -40,17 +41,17 @@ const EntryDetail = (props) => {
                 style={styles.fullImage} /> */}
             <View style={styles.textContainer}>
                 {/* <Text style={styles.descriptionText}>{entry.description}</Text> */}
-                <HTMLView
-                    value={entry.content}
-                    stylesheet={styles}
-                    renderNode={renderNode}
-                    onLinkPress={url => Linking.openURL(url)}
-                />
+               <HTMLView
+                value={entry.content}
+                 stylesheet={styles}
+                renderNode={renderNode}
+                onLinkPress={url => Linking.openURL(url)}
+                 />
                 <Text style={styles.date}>{entry.pubDate || entry.date}</Text>
             </View>
             <Button
-                style={{ borderWidth: 1, borderColor: 'blue', paddingBottom: 30 }}
-                onPress={handlePress} title='Read More..' />
+                style={{ borderWidth: 1, borderColor: 'blue' , paddingBottom: 30 }}
+                onPress={handlePress} title='Read More..'/>
         </ScrollView>
 
     )
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         padding: 7,
         flex: 1,
-        justifyContent: 'center',
+        justifyContent :'center',
         alignItems: 'center',
     },
     // title: {

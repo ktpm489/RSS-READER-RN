@@ -18,7 +18,8 @@ class RssItem extends Component {
     componentDidMount() {
         const parseUrl = 'https://api.rss2json.com/v1/api.json?rss_url=';
         const { url } = this.props
-        fetch( parseUrl + url)
+        const linkData = parseUrl + url + '&api_key=af6isnmdfd8q9mc6p28emc094cw5hj56avozhfhq'
+        fetch(linkData)
         .then (response => response.json())
         .then ((json)=> {
             if (json.status === 'ok'){
