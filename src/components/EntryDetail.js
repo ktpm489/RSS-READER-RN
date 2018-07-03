@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, Text, Linking, StyleSheet, WebView, View, Button, Image } from 'react-native'
+import { ScrollView, Text, Linking, StyleSheet, WebView, View, Button, Image, Dimensions } from 'react-native'
 import HTMLView from 'react-native-htmlview'
 import Colors from '../constants/Colors'
 
@@ -19,16 +19,34 @@ const EntryDetail = (props) => {
         )
 
     }
+
+    const  drawImageScaled = (img) =>{
+        let screenSize = Dimensions.get('window');
+        let hRatio = screenSize.width / img.width;
+        let vRatio = screenSize.height / img.height;
+        let ratio = Math.min(hRatio, vRatio);
+        return { width: parseInt(img.width * ratio), height: parseInt(img.height * ratio) };
+    }
     const renderNode = (node, index, siblings, parent, defaultRenderer) => {
         if (node.name == 'img') {
             const a = node.attribs;
             const src = a.src
-            if (src && src.endsWith('.gif')) {
-                return (<Image style={{ width: 200, height: 50, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
-            } else {
-                return (<Image style={{ width: 500, height: 200, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
-            }
-
+            // if (src && src.endsWith('.gif')) {
+            //     return (<Image style={{ width: 200, height: 50, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
+            // } else {
+            //     return (<Image style={{ width: 500, height: 200, alignSelf: 'center', justifyContent: 'center', alignContent: 'center' }} source={{ uri: a.src }} resizeMode='cover' />);
+            // }
+            return (
+                <Image
+                    key={index}
+                    source={{ uri: a.src }}
+                    style={{
+                        width: drawImageScaled(a).width,
+                        height: drawImageScaled(a).height,
+                        alignSelf:'center'
+                    }}
+                    resizeMode={'cover'} />
+            );
         }
     }
     return (
